@@ -634,6 +634,31 @@ static int bestpolygon(privpath_t *pp)
   return 1;
 }
 
+static int save_polygon(privpath_t *pp){
+  int m = pp->m;
+  int *po = pp->po;
+  int i,j;
+  float x,y;
+  point_t *pt = pp->pt;
+
+  //open tmp file
+  FILE * fp;
+  fp = fopen("tmp.txt", "w");
+  printf("Open file succesfully.\n");
+  for (int j = 0; j < m; ++j)
+  {
+    i = po[j];
+    
+    x = pt[i].x;
+    y = pt[i].y;
+    //save x and y
+    
+    fprintf(fp, "%f %f\n", x, y);
+  }
+  fclose(fp);
+  return 1;
+}
+
 /* ---------------------------------------------------------------------- */
 /* Stage 3: vertex adjustment (Sec. 2.3.1). */
 
@@ -1221,6 +1246,7 @@ int process_path(path_t *plist, const potrace_param_t *param, progress_t *progre
     TRY(calc_sums(p->priv));
     TRY(calc_lon(p->priv));
     TRY(bestpolygon(p->priv));
+    TRY(save_polygon(p-priv));
     TRY(adjust_vertices(p->priv));
     if (p->sign == '-') {   /* reverse orientation of negative paths */
       reverse(&p->priv->curve);
