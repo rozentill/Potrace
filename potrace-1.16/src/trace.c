@@ -1246,7 +1246,7 @@ int process_path(path_t *plist, const potrace_param_t *param, progress_t *progre
     TRY(calc_sums(p->priv));
     TRY(calc_lon(p->priv));
     TRY(bestpolygon(p->priv));
-    TRY(save_polygon(p-priv));
+    TRY(save_polygon(p->priv));
     TRY(adjust_vertices(p->priv));
     if (p->sign == '-') {   /* reverse orientation of negative paths */
       reverse(&p->priv->curve);
