@@ -643,7 +643,7 @@ static int save_polygon(privpath_t *pp){
 
   //open tmp file
   FILE * fp;
-  fp = fopen("tmp.txt", "w");
+  fp = fopen("tmp_polygon.txt", "w");
   printf("Open file succesfully.\n");
   for (int j = 0; j < m; ++j)
   {
@@ -860,6 +860,28 @@ static int adjust_vertices(privpath_t *pp) {
   free(ctr);
   free(dir);
   free(q);
+  return 1;
+}
+
+static int save_vertices(privpath_t *pp){
+  int m = pp->m;
+  // int *po = pp->po;
+  int i,j;
+  float x,y;
+  // point_t *pt = pp->pt;
+
+  //open tmp file
+  FILE * fp;
+  fp = fopen("tmp_vertices.txt", "w");
+
+  for (int j = 0; j < m; ++j)
+  {
+    x = pp->curve.vertex[i].x;
+    y = pp->curve.vertex[i].y;
+    
+    fprintf(fp, "%f %f\n", x, y);
+  }
+  fclose(fp);
   return 1;
 }
 
@@ -1248,6 +1270,7 @@ int process_path(path_t *plist, const potrace_param_t *param, progress_t *progre
     TRY(bestpolygon(p->priv));
     TRY(save_polygon(p->priv));
     TRY(adjust_vertices(p->priv));
+    TRY(save_vertices(p->priv));
     if (p->sign == '-') {   /* reverse orientation of negative paths */
       reverse(&p->priv->curve);
     }
