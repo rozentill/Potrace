@@ -644,7 +644,7 @@ static int save_polygon(privpath_t *pp){
   //open tmp file
   FILE * fp;
   fp = fopen("tmp_polygon.txt", "w");
-  printf("Open file succesfully.\n");
+  printf("Open file succesfully. Test!\n");
   for (int j = 0; j < m; ++j)
   {
     i = po[j];
@@ -656,6 +656,7 @@ static int save_polygon(privpath_t *pp){
     fprintf(fp, "%f %f\n", x, y);
   }
   fclose(fp);
+  printf("successfully close the file.\n");
   return 1;
 }
 
@@ -1269,7 +1270,9 @@ int process_path(path_t *plist, const potrace_param_t *param, progress_t *progre
     TRY(calc_sums(p->priv));
     TRY(calc_lon(p->priv));
     TRY(bestpolygon(p->priv));
+    printf("before save polygon.\n");
     TRY(save_polygon(p->priv));
+    printf("after save polygon.\n");
     TRY(adjust_vertices(p->priv));
     printf("before save vertices.\n");
     TRY(save_vertices(p->priv));
