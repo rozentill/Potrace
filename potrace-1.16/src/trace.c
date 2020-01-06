@@ -669,6 +669,7 @@ static int save_polygon(privpath_t *pp){
    success. */
 
 static int adjust_vertices(privpath_t *pp) {
+  printf("Begin adjust vertices.\n")
   int m = pp->m;
   int *po = pp->po;
   int n = pp->len;
@@ -861,7 +862,10 @@ static int adjust_vertices(privpath_t *pp) {
   free(ctr);
   free(dir);
   free(q);
+  
+  printf("Finish adjust vertices.\n");
   return 1;
+
 }
 
 static int save_vertices(privpath_t *pp){
