@@ -864,6 +864,7 @@ static int adjust_vertices(privpath_t *pp) {
 }
 
 static int save_vertices(privpath_t *pp){
+  printf("Now inside save vertices func.\n");
   int m = pp->m;
   // int *po = pp->po;
   int i,j;
@@ -1270,7 +1271,9 @@ int process_path(path_t *plist, const potrace_param_t *param, progress_t *progre
     TRY(bestpolygon(p->priv));
     TRY(save_polygon(p->priv));
     TRY(adjust_vertices(p->priv));
+    printf("before save vertices.\n");
     TRY(save_vertices(p->priv));
+    printf("after save vertices.\n");
     if (p->sign == '-') {   /* reverse orientation of negative paths */
       reverse(&p->priv->curve);
     }
