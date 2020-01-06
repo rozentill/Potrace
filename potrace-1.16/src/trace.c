@@ -873,7 +873,7 @@ static int save_vertices(privpath_t *pp){
   //open tmp file
   FILE * fp;
   fp = fopen("tmp_vertices.txt", "w");
-
+  printf("open tmp_vertices.txt succesfully.\n");
   for (int j = 0; j < m; ++j)
   {
     x = pp->curve.vertex[i].x;
