@@ -1270,17 +1270,30 @@ int process_path(path_t *plist, const potrace_param_t *param, progress_t *progre
   }
   
   /* call downstream function with each path */
+  int i,j;
+  float x,y;
+  FILE * fp;
+  fp = fopen("tmp.txt", "w");
+
   list_forall (p, plist) {
     TRY(calc_sums(p->priv));
     TRY(calc_lon(p->priv));
     TRY(bestpolygon(p->priv));
-    printf("before save polygon.\n");
-    save_polygon(p->priv);
-    printf("after save polygon.\n");
     TRY(adjust_vertices(p->priv));
+
     printf("before save vertices.\n");
-    save_vertices(p->priv);
+
+    int m = p->priv->m;
+    for (int j = 0; j < m; ++j)
+    {
+      x = pp->curve.vertex[j].x;
+      y = pp->curve.vertex[j].y;
+      
+      fprintf(fp, "%f %f\n", x, y);
+    }
+    fprintf(fp, "split\n", x, y);
     printf("after save vertices.\n");
+    
     if (p->sign == '-') {   /* reverse orientation of negative paths */
       reverse(&p->priv->curve);
     }
@@ -1300,7 +1313,7 @@ int process_path(path_t *plist, const potrace_param_t *param, progress_t *progre
   }
 
   progress_update(1.0, progress);
-
+  fclose(fp);
   return 0;
 
  try_error:
