@@ -669,7 +669,7 @@ static int save_polygon(privpath_t *pp){
    success. */
 
 static int adjust_vertices(privpath_t *pp) {
-  printf("Begin adjust vertices.\n")
+  printf("Begin adjust vertices.\n");
   int m = pp->m;
   int *po = pp->po;
   int n = pp->len;
@@ -882,8 +882,8 @@ static int save_vertices(privpath_t *pp){
   printf("open tmp_vertices.txt succesfully.\n");
   for (int j = 0; j < m; ++j)
   {
-    x = pp->curve.vertex[i].x;
-    y = pp->curve.vertex[i].y;
+    x = pp->curve.vertex[j].x;
+    y = pp->curve.vertex[j].y;
     
     fprintf(fp, "%f %f\n", x, y);
   }
@@ -1275,11 +1275,11 @@ int process_path(path_t *plist, const potrace_param_t *param, progress_t *progre
     TRY(calc_lon(p->priv));
     TRY(bestpolygon(p->priv));
     printf("before save polygon.\n");
-    TRY(save_polygon(p->priv));
+    save_polygon(p->priv);
     printf("after save polygon.\n");
     TRY(adjust_vertices(p->priv));
     printf("before save vertices.\n");
-    TRY(save_vertices(p->priv));
+    save_vertices(p->priv);
     printf("after save vertices.\n");
     if (p->sign == '-') {   /* reverse orientation of negative paths */
       reverse(&p->priv->curve);
