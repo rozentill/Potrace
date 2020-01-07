@@ -1281,18 +1281,16 @@ int process_path(path_t *plist, const potrace_param_t *param, progress_t *progre
     TRY(bestpolygon(p->priv));
     TRY(adjust_vertices(p->priv));
 
-    printf("before save vertices.\n");
 
     int m = p->priv->m;
     for (int j = 0; j < m; ++j)
     {
-      x = pp->curve.vertex[j].x;
-      y = pp->curve.vertex[j].y;
+      x = p->priv->curve.vertex[j].x;
+      y = p->priv->curve.vertex[j].y;
       
       fprintf(fp, "%f %f\n", x, y);
     }
-    fprintf(fp, "split\n", x, y);
-    printf("after save vertices.\n");
+    fprintf(fp, "split\n");
     
     if (p->sign == '-') {   /* reverse orientation of negative paths */
       reverse(&p->priv->curve);
@@ -1314,6 +1312,7 @@ int process_path(path_t *plist, const potrace_param_t *param, progress_t *progre
 
   progress_update(1.0, progress);
   fclose(fp);
+  fp = NULL;
   return 0;
 
  try_error:
