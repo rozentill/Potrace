@@ -62,17 +62,17 @@ def main():
 
         f_img_src = join(src, subdir, "raster.png")
         
-        im_rgba = cv2.imread(f_img_src, cv2.IMREAD_UNCHANGED)
-        if len(im_rgba.shape) == 2:
-                im_rgba = np.expand_dims(im_rgba, axis=2)
-                img_src = np.concatenate((im_rgba, im_rgba, im_rgba),axis=2)
-        elif im_rgba.shape[2] == 4:
-            img_src = im_rgba[:, :, :3]
-            img_src[:, :, 0] = im_rgba[:,:, 0] * im_rgba[:,:, 3] + (1-im_rgba[:,:, 3]) * 1
-            img_src[:, :, 1] = im_rgba[:,:, 1] * im_rgba[:,:, 3] + (1-im_rgba[:,:, 3]) * 1
-            img_src[:, :, 2] = im_rgba[:,:, 2] * im_rgba[:,:, 3] + (1-im_rgba[:,:, 3]) * 1
-        elif im_rgba.shape[2] == 3:
-            img_src=im_rgba
+        img_src = cv2.imread(f_img_src, cv2.IMREAD_UNCHANGED)
+        # if len(im_rgba.shape) == 2:
+        #         im_rgba = np.expand_dims(im_rgba, axis=2)
+        #         img_src = np.concatenate((im_rgba, im_rgba, im_rgba),axis=2)
+        # elif im_rgba.shape[2] == 4:
+        #     img_src = im_rgba[:, :, :3]
+        #     img_src[:, :, 0] = im_rgba[:,:, 0] * im_rgba[:,:, 3] + (1-im_rgba[:,:, 3]) * 1
+        #     img_src[:, :, 1] = im_rgba[:,:, 1] * im_rgba[:,:, 3] + (1-im_rgba[:,:, 3]) * 1
+        #     img_src[:, :, 2] = im_rgba[:,:, 2] * im_rgba[:,:, 3] + (1-im_rgba[:,:, 3]) * 1
+        # elif im_rgba.shape[2] == 3:
+        #     img_src=im_rgba
 
         height = img_src.shape[0]
         width = img_src.shape[1]
