@@ -16,8 +16,7 @@ def parse_args():
 	return args.src_dir, args.dst_dir
 
 def verbose(*args, level=1):
-	if VERBOSITY_LEVEL >= level:
-		print(*args)
+    print(*args)
 
 def process_command(command, stdinput=None, stdout_=False, stderr_=False):
 	"""run command in invisible shell, return stdout and/or stderr as specified
