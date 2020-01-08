@@ -115,7 +115,7 @@ def main():
             for line in lines:
                 if "split" in line:
                     num = 0
-                    cv2.line(img_polygon, (prev_x, prev_y), (start_x, start_y), (120, 120, 120), 1) # draw back to start point
+                    cv2.line(img_polygon, (prev_x, prev_y), (start_x, start_y), (0, 200, 200), 1) # draw back to start point
                     continue
                 else: #there are numbers
                     point = line.split(" ")
@@ -123,19 +123,19 @@ def main():
                     y = (float(point[1]))
                     x = int((x+1)*scale)
                     y = int((16-y+1)*scale)
-                    cv2.circle(img_polygon, (x, y), 2, (0, 0, 255), -1)
+                    cv2.circle(img_polygon, (x, y), 2, (200, 200, 0), -1)
                     num += 1
                     if num == 1:
                         start_y = y
                         start_x = x
                     else:
-                        cv2.line(img_polygon, (prev_x, prev_y), (x, y), (0, 0, 0), 2)
+                        cv2.line(img_polygon, (prev_x, prev_y), (x, y), (0, 200, 200), 1)
 
                     prev_y = y
                     prev_x = x
 
             f_dst_polygon_img = join(dst, subdir, "raster_polygon.png")
-                        cv2.imwrite(f_dst_polygon_img, img_polygon)
+            cv2.imwrite(f_dst_polygon_img, img_polygon)
 
 
 
