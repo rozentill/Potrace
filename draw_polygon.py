@@ -123,18 +123,19 @@ def main():
 					y = (float(point[1]))
 					x = int((x+1)*scale)
 					y = int((16-y+1)*scale)
-					cv2.circle(img, (x, y), 2, (0, 0, 255), -1)
+					cv2.circle(img_polygon, (x, y), 2, (0, 0, 255), -1)
 					num += 1
 					if num == 1:
 						start_y = y
 						start_x = x
 					else:
-						cv2.line(img, (prev_x, prev_y), (x, y), (0, 0, 0), 2)
+						cv2.line(img_polygon, (prev_x, prev_y), (x, y), (0, 0, 0), 2)
 
 					prev_y = y
 					prev_x = x
 
-			cv2.imwrite(f_dst_polygon_img, img_polygon)
+			f_dst_polygon_img = join(dst, subdir, "raster_polygon.png")
+                        cv2.imwrite(f_dst_polygon_img, img_polygon)
 
 
 
