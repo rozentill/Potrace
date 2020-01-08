@@ -73,7 +73,7 @@ def main():
 		'-a {smoothcorners} -O {optimizepaths} "{src}"').format(
 		potrace = POTRACE_PATH, dest=f_svg, outcolor="#ffffff",
 		despeckle=0, smoothcorners=1, optimizepaths=0.2, src=f_ppm)
-
+		process_command(command)
 		# check polygon
 		f_tmp = "tmp.txt"
 		if os.path.isfile(f_tmp):
