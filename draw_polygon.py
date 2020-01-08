@@ -14,35 +14,35 @@ def parse_args():
 	return args.src_dir, args.dst_dir
 
 def process_command(command, stdinput=None, stdout_=False, stderr_=False):
-    """run command in invisible shell, return stdout and/or stderr as specified
+	"""run command in invisible shell, return stdout and/or stderr as specified
 
-    Returns stdout, stderr, or a tuple (stdout, stderr) depending on which of
-    stdout_ and stderr_ is True. Raises an exception if the command encounters
-    an error.
+	Returns stdout, stderr, or a tuple (stdout, stderr) depending on which of
+	stdout_ and stderr_ is True. Raises an exception if the command encounters
+	an error.
 
-    command: command with arguments to send to command line
-    stdinput: data (bytes) to send to command's stdin, or None
-    stdout_: True to receive command's stdout in the return value
-    stderr_: True to receive command's stderr in the return value
+	command: command with arguments to send to command line
+	stdinput: data (bytes) to send to command's stdin, or None
+	stdout_: True to receive command's stdout in the return value
+	stderr_: True to receive command's stderr in the return value
 """
-    verbose(command)
-    stdin_pipe   = (subprocess.PIPE if stdinput  is not None else None)
-    stdout_pipe  = (subprocess.PIPE if stdout_ is True else None)
-    stderr_pipe  = subprocess.PIPE
-    process = subprocess.Popen(command, stdin=stdin_pipe, stderr=stderr_pipe, stdout=stdout_pipe,
-        shell=True)
-    stdoutput, stderror = process.communicate(stdinput)
-    returncode = process.wait()
-    if returncode != 0:
-        Exception(stderror.decode())
-    if stdout_ and not stderr_:
-        return stdoutput
-    elif stderr_ and not stdout_:
-        return stderr
-    elif stdout_ and stderr_:
-        return (stdoutput, stderror)
-    elif not stdout_ and not stderr_:
-        return None
+	verbose(command)
+	stdin_pipe   = (subprocess.PIPE if stdinput  is not None else None)
+	stdout_pipe  = (subprocess.PIPE if stdout_ is True else None)
+	stderr_pipe  = subprocess.PIPE
+	process = subprocess.Popen(command, stdin=stdin_pipe, stderr=stderr_pipe, stdout=stdout_pipe,
+		shell=True)
+	stdoutput, stderror = process.communicate(stdinput)
+	returncode = process.wait()
+	if returncode != 0:
+		Exception(stderror.decode())
+	if stdout_ and not stderr_:
+		return stdoutput
+	elif stderr_ and not stdout_:
+		return stderr
+	elif stdout_ and stderr_:
+		return (stdoutput, stderror)
+	elif not stdout_ and not stderr_:
+		return None
 
 #run and draw
 def main():
@@ -68,16 +68,16 @@ def main():
 		f_svg = join(dst, subdir, "raster_polygon.svg")
 
 		command = ('"{potrace}" --svg -o "{dest}" -C "{outcolor}" -t {despeckle} '
-        '-a {smoothcorners} -O {optimizepaths} "{src}"').format(
-        potrace = POTRACE_PATH, dest=f_svg, outcolor="#ffffff",
-        despeckle=0, smoothcorners=1, optimizepaths=0.2, src=f_ppm)
+		'-a {smoothcorners} -O {optimizepaths} "{src}"').format(
+		potrace = POTRACE_PATH, dest=f_svg, outcolor="#ffffff",
+		despeckle=0, smoothcorners=1, optimizepaths=0.2, src=f_ppm)
 
-        # check polygon
-        f_tmp = "tmp.txt"
-        if os.path.isfile(f_tmp):
-        	pass
-    	else:
-    		print("Not found tmp file!")
+		# check polygon
+		f_tmp = "tmp.txt"
+		if os.path.isfile(f_tmp):
+			pass
+		else:
+			print("Not found tmp file!")
 
 		#copy polygon
 		f_dst_polygon = join(dst, subdir, "raster_polygon.txt")
