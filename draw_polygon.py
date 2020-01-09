@@ -103,9 +103,14 @@ def main():
 
         with open(f_dst_polygon, 'r') as f:
             scale = 10
-            img_polygon = np.ones(((width+2)*scale,(height+2)*scale, 3), np.uint8)
+            img_polygon = np.ones(((height+2)*scale,(width+2)*scale, 3), np.uint8)
             img_polygon = img_polygon*255
-            img_polygon[1*scale:height*scale+1*scale, 1*scale:width*scale+1*scale] = cv2.resize(img_src, (width*scale, height*scale), interpolation=cv2.INTER_NEAREST)
+            print("img polygon shape is ")
+            print(img_polygon.shape)
+            img_src = cv2.resize(img_src, (width*scale, height*scale), interpolation=cv2.INTER_NEAREST)
+            print("img src shape is ")
+            print(img_src.shape)
+            img_polygon[1*scale:height*scale+1*scale, 1*scale:width*scale+1*scale] = img_src
             start_x = -1
             start_y = -1
             prev_x = -1
@@ -122,7 +127,7 @@ def main():
                     x = (float(point[0]))
                     y = (float(point[1]))
                     x = int((x+1)*scale)
-                    y = int((16-y+1)*scale)
+                    y = int((height-y+1)*scale)
                     cv2.circle(img_polygon, (x, y), 2, (200, 200, 0), -1)
                     num += 1
                     if num == 1:
