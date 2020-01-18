@@ -63,16 +63,6 @@ def main():
         f_img_src = join(src, subdir, "raster.png")
         
         img_src = cv2.imread(f_img_src, cv2.IMREAD_UNCHANGED)
-        # if len(im_rgba.shape) == 2:
-        #         im_rgba = np.expand_dims(im_rgba, axis=2)
-        #         img_src = np.concatenate((im_rgba, im_rgba, im_rgba),axis=2)
-        # elif im_rgba.shape[2] == 4:
-        #     img_src = im_rgba[:, :, :3]
-        #     img_src[:, :, 0] = im_rgba[:,:, 0] * im_rgba[:,:, 3] + (1-im_rgba[:,:, 3]) * 1
-        #     img_src[:, :, 1] = im_rgba[:,:, 1] * im_rgba[:,:, 3] + (1-im_rgba[:,:, 3]) * 1
-        #     img_src[:, :, 2] = im_rgba[:,:, 2] * im_rgba[:,:, 3] + (1-im_rgba[:,:, 3]) * 1
-        # elif im_rgba.shape[2] == 3:
-        #     img_src=im_rgba
 
         height = img_src.shape[0]
         width = img_src.shape[1]
@@ -141,9 +131,6 @@ def main():
 
             f_dst_polygon_img = join(dst, subdir, "raster_polygon.png")
             cv2.imwrite(f_dst_polygon_img, img_polygon)
-
-
-
 #only draw
 def main_test_single():
 
@@ -154,7 +141,7 @@ def main_test_single():
     width = img_dst.shape[1]
     height = img_dst.shape[0]
     img_dst = cv2.resize(img_dst, (width*scale, height*scale), interpolation=cv2.INTER_NEAREST)
-    img = np.ones(((width+2)*scale,(height+2)*scale, 3), np.uint8)
+    img = np.ones(((height+2)*scale,(width+2)*scale, 3), np.uint8)
     img = img*255
     img[1*scale:height*scale+1*scale, 1*scale:width*scale+1*scale] = img_dst
 
@@ -175,7 +162,7 @@ def main_test_single():
             x = (float(point[0]))
             y = (float(point[1]))
             x = int((x+1)*scale)
-            y = int((16-y+1)*scale)
+            y = int((height-y+1)*scale)
             cv2.circle(img, (x, y), 2, (0, 0, 255), -1)
             if num == 0:
             

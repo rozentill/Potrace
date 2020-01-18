@@ -1272,6 +1272,8 @@ int process_path(path_t *plist, const potrace_param_t *param, progress_t *progre
   /* call downstream function with each path */
   int i,j;
   float x,y;
+  int *po;
+  point_t *pt;
   FILE * fp;
   fp = fopen("tmp.txt", "w");
 
@@ -1279,19 +1281,40 @@ int process_path(path_t *plist, const potrace_param_t *param, progress_t *progre
     TRY(calc_sums(p->priv));
     TRY(calc_lon(p->priv));
     TRY(bestpolygon(p->priv));
-    TRY(adjust_vertices(p->priv));
 
-
+    /*************************/
+    //save polygon
     int m = p->priv->m;
+    po = p->priv->po;
+    pt = p->priv->pt;
+
     for (int j = 0; j < m; ++j)
     {
-      x = p->priv->curve.vertex[j].x;
-      y = p->priv->curve.vertex[j].y;
+      i = po[j];
+      
+      x = pt[i].x;
+      y = pt[i].y;
       
       fprintf(fp, "%f %f\n", x, y);
     }
     fprintf(fp, "split\n");
-    
+    /*************************/
+
+    TRY(adjust_vertices(p->priv));
+
+    //save vertices
+    // int m = p->priv->m;
+    // for (int j = 0; j < m; ++j)
+    // {
+    //   x = p->priv->curve.vertex[j].x;
+    //   y = p->priv->curve.vertex[j].y;
+      
+    //   fprintf(fp, "%f %f\n", x, y);
+    // }
+    // fprintf(fp, "split\n");
+  
+
+    // after save vertices
     if (p->sign == '-') {   /* reverse orientation of negative paths */
       reverse(&p->priv->curve);
     }
