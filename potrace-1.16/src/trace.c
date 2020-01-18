@@ -1284,34 +1284,34 @@ int process_path(path_t *plist, const potrace_param_t *param, progress_t *progre
 
     /*************************/
     //save polygon
-    int m = p->priv->m;
-    po = p->priv->po;
-    pt = p->priv->pt;
+    //int m = p->priv->m;
+    //po = p->priv->po;
+    //pt = p->priv->pt;
 
-    for (int j = 0; j < m; ++j)
-    {
-      i = po[j];
+    //for (int j = 0; j < m; ++j)
+    //{
+      //i = po[j];
       
-      x = pt[i].x;
-      y = pt[i].y;
+      //x = pt[i].x;
+      //y = pt[i].y;
       
-      fprintf(fp, "%f %f\n", x, y);
-    }
-    fprintf(fp, "split\n");
+      //fprintf(fp, "%f %f\n", x, y);
+    //}
+    //fprintf(fp, "split\n");
     /*************************/
 
     TRY(adjust_vertices(p->priv));
 
     //save vertices
-    // int m = p->priv->m;
-    // for (int j = 0; j < m; ++j)
-    // {
-    //   x = p->priv->curve.vertex[j].x;
-    //   y = p->priv->curve.vertex[j].y;
+    int m = p->priv->m;
+    for (int j = 0; j < m; ++j)
+    {
+      x = p->priv->curve.vertex[j].x;
+      y = p->priv->curve.vertex[j].y;
       
-    //   fprintf(fp, "%f %f\n", x, y);
-    // }
-    // fprintf(fp, "split\n");
+      fprintf(fp, "%f %f\n", x, y);
+    }
+    fprintf(fp, "split\n");
   
 
     // after save vertices

@@ -69,8 +69,8 @@ def main():
 
         # run potrace
 
-        f_ppm = join(dst, subdir, "raster~tmp_layer.ppm")
-        f_svg = join(dst, subdir, "raster_polygon.svg")
+        f_ppm = join(dst, subdir, "curves_closed~tmp_layer.ppm")
+        f_svg = join(dst, subdir, "curves_closed_polygon.svg")
 
         command = ('"{potrace}" --svg -o "{dest}" -C "{outcolor}" -t {despeckle} '
         '-a {smoothcorners} -O {optimizepaths} "{src}"').format(
